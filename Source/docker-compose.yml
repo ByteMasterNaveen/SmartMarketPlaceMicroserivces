@@ -1,8 +1,8 @@
 version: '3.4'
 
 services:
-  catalogapi:
-    image: ${DOCKER_REGISTRY-}catalogapi
-    build:
-      context: ../SmartMarketPlace
-      dockerfile: ../Source/Services/Catalog/CatalogAPI/Dockerfile
+  catalogdb:
+    image: postgres:latest
+
+volumes:
+  postgres_catalog:

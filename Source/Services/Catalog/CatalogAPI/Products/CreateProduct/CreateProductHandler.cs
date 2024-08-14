@@ -1,4 +1,6 @@
-﻿namespace CatalogAPI.Products.CreateProduct
+﻿using Npgsql;
+
+namespace CatalogAPI.Products.CreateProduct
 {
 
     public record CreateProductCommand(string Name, List<string> Category, string Description, string ImageFile, decimal Price)
@@ -11,8 +13,10 @@
         {
             //create product entity form command object
 
+
             var product = new Product
             {
+                Id = Guid.NewGuid(),
                 Name = command.Name,
                 Description = command.Description,
                 ImageFile = command.ImageFile,
@@ -24,7 +28,7 @@
             session.Store(product);
             await session.SaveChangesAsync(cancellationToken);
             //retrun create product result
-            return new CreateProductResult(Guid.NewGuid());
+            return new CreateProductResult(product.Id);
 
 
         }
